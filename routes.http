@@ -23,3 +23,15 @@ Content-Type: application/json
 {
     "prompt": "sound effects"
 }
+
+###
+
+# @name generate-ai-completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+    "videoId": "6acfee5b-b078-4a5e-b452-d32ecdb8376b",
+    "temperature": 0.5,
+    "template": "Generate a summary of the transcription from the : '''{transcription}'''" 
+}

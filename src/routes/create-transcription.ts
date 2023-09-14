@@ -26,21 +26,28 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
     });
 
     const videoPath = video.path;
-
     const audioReadStream = createReadStream(videoPath);
 
     const response = await openai.audio.transcriptions.create({
       file: audioReadStream,
       model: "whisper-1",
-      language: "en",
-      response_format: "text",
+      language: "pt",
+      response_format: "json",
+      temperature: 0,
+      prompt,
     });
 
-    return {
-      videoId,
-      prompt,
-      videoPath,
-      response,
-    };
+    const transcription = response.text;
+
+    await prisma.video.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        transcription,
+      },
+    });
+
+    return { transcription };
   });
 }
