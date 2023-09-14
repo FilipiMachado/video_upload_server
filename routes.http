@@ -3,3 +3,8 @@ GET http://localhost:3333/prompts
 
 ###
 
+# @name upload-video
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary--test
+
+###
