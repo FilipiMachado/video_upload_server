@@ -8,8 +8,8 @@ POST http://localhost:3333/videos
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="example.mp3"
-Content-Type: audio/mpeg
+Content-Disposition: form-data; name="file"; filename="example_video.mp3"
+Content-Type: mp3/mpeg
 
 < ./example.mp3
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
@@ -17,7 +17,7 @@ Content-Type: audio/mpeg
 ###
 
 # @name create-transcription
-POST http://localhost:3333/videos/8e10c99e-d706-41c2-be5f-4c9b6c512c67/transcription
+POST http://localhost:3333/videos/81f912e1-2a81-4b59-8900-496d998cf645/transcription
 Content-Type: application/json
 
 {
@@ -31,7 +31,7 @@ POST http://localhost:3333/ai/complete
 Content-Type: application/json
 
 {
-    "videoId": "32533ce0-a1b8-42e7-a176-829c98d47e45",
+    "videoId": "81f912e1-2a81-4b59-8900-496d998cf645",
     "temperature": 0.5,
-    "template": "Generate a summary of the transcription from the : '''{transcription}'''" 
+    "prompt": "Generate a summary of the transcription from the : '''{transcription}'''" 
 }
