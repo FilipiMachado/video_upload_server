@@ -27,15 +27,26 @@ export async function createTranscriptionRoute(app: FastifyInstance) {
 
     const videoPath = video.path;
     const audioReadStream = createReadStream(videoPath);
-
-    const response = await openai.audio.transcriptions.create({
-      file: audioReadStream,
-      model: "whisper-1",
-      language: "pt",
-      response_format: "json",
-      temperature: 0,
-      prompt,
+    audioReadStream.on("error", function (err) {
+      console.error(err);
+      throw new Error("Failed to read video file");
     });
+
+    console.log(openai.apiKey)
+
+    const response = await openai.audio.transcriptions
+      .create({
+        file: audioReadStream,
+        model: "whisper-1",
+        language: "en",
+        response_format: "json",
+        temperature: 0,
+        prompt,
+      })
+      .catch((e) => {
+        console.error(e);
+        throw new Error("Failed to transcribe video");
+      });
 
     const transcription = response.text;
 
